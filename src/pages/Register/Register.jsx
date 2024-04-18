@@ -1,7 +1,9 @@
+import { db } from '../../firebase/config'
 // styles
 import styles from './Register.module.css'
 // hooks
 import { useState, useEffect } from 'react'
+import { useAuthentication } from '../../hooks/useAuthentication';
 
 const Register = () => {
 
@@ -11,7 +13,9 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    const {createUser, loading, error: authError} = useAuthentication()
+
+    const handleSubmit = async(e) => {
         e.preventDefault()
 
         if(password != confirmPassword){
@@ -26,8 +30,16 @@ const Register = () => {
             password,
         }
 
-        console.log(user)
+        const res = await createUser({email, password, userName});
+        console.log(res)
+        
     }
+
+    useEffect(() => {
+        if(authError){
+            setError(authError);
+        }
+    }, [authError]);
 
     return (
         <div className={styles.register}>
@@ -72,7 +84,8 @@ const Register = () => {
                         value={confirmPassword} 
                         onChange={(e) => setConfirmPassword(e.target.value)}/>
                 </label>
-                <button className='btn'>Criar cadastro</button>
+                {!loading && <button className='btn'>Criar cadastro</button>}
+                {loading && <button className='btn' disabled>Aguarde...</button>}
                 {error && <p className='error'>{error}</p>}
             </form>
         </div>
