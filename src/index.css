@@ -80,17 +80,17 @@ input, textarea{
   font-family: "Montserrat", sans-serif;
 }
 
-.btn.btn-dark{
-  background-color: #000;
+.btn.btn-light{
+  background-color: whitesmoke;
+  color: #000;
   border-radius: 0;
 }
-
 
 .btn.btn-outline{
   background-color: transparent;
   border-radius: 0;
-  color: #000;
-  border: 1px solid #000;
+  color: white;
+  border: 1px solid white;
   padding: 7px 30px;
 }
 

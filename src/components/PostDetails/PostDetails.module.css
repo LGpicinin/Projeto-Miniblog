@@ -1,21 +1,16 @@
-.home{
+.post{
     align-items: center;
     justify-content: center;
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
 }
 
-.searchForm label input{
-   margin-right: 10px;
-   width: 200px;
+.post img{
+    width: 500px;
 }
 
-.searchForm label{
+.tags{
     display: flex;
     flex-direction: row;
-}
-
-.noPosts{
-    text-align: center;
-    margin-top: -30px;
 }
