@@ -13,22 +13,29 @@ const Home = () => {
 
   const [query, setQuery] = useState("");
   const {documents: posts, error, loading} = useFetchDocuments("posts")
+  const navigate = useNavigate();
   
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(query){
+      return navigate(`/search?q=${query}`)
+    }
   }
   return (
     <div className={styles.home}>
         <h1>Veja os nossos posts mais recentes</h1>
 
-        <form className={styles.searchForm}>
+        <form onSubmit={handleSubmit} className={styles.searchForm}>
           <label>
             <input type="text" placeholder='Ou pesquise pelas tags...' value={query} onChange={(e) => setQuery(e.target.value)}/>
             <button className="btn btn-light">Buscar</button>
           </label>
         </form>
 
+        {loading && <p>Carregando...</p>}
+        {error && <p>{error}</p>}
         {posts && posts.map((post) => (<PostDetails key={post.id} post={post}/>))}
         {posts && posts.length === 0 &&
           <div className={styles.noPosts}>

@@ -1,16 +1,32 @@
 .post{
-    align-items: center;
-    justify-content: center;
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .post img{
-    width: 500px;
+    max-width: 500px;
 }
 
 .tags{
     display: flex;
     flex-direction: row;
+}
+
+.createdBy{
+    font-size: .8em;
+    font-style: italic;
+    margin-top: -20px;
+}
+
+.tags span{
+    font-weight: bold;
+}
+
+.tags p{
+    margin-right: 5px;
+}
+
+.post a{
+    width: 30px;
 }
