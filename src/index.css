@@ -1,6 +1,5 @@
 body {
   font-family: "Montserrat", sans-serif;
-  line-height: 2.1;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -24,10 +23,10 @@ textarea:focus{
   outline: none;
 }
 
-a, nav button{
+a, nav, button{
   color: whitesmoke;
   background-color: transparent;
-  padding: 8px;
+  padding: 0px 8px;
   text-decoration: none;
   transition: .4s;
   font-size: 1em;

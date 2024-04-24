@@ -2,18 +2,18 @@
 import { useReducer } from "react";
 // firebase
 import { db } from "../firebase/config";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 
 const initialState = {
     loading: false, 
     error: null,
 }
 
-const insertReducer = (state, action) => {
+const updateReducer = (state, action) => {
     switch(action.type){
         case 'LOADING':
             return {loading: true, error: null}
-        case 'INSERT_DOC':
+        case 'UPDATE_DOC':
             return {loading: false, error: null}
         case 'ERROR':
             return {loading: false, error: action.payload}
@@ -23,25 +23,24 @@ const insertReducer = (state, action) => {
 
 }
 
-export const useInsertDocument = (docCollection) => {
-    const [response, dispatch] = useReducer(insertReducer, initialState)
+export const useUpdateDocument = (docCollection) => {
+    const [response, dispatch] = useReducer(updateReducer, initialState)
 
 
-    const insertDocument = async(document) => {
+    const updateDocument = async(data, id) => {
         
         dispatch({
             type: "LOADING",
         })
         try {
-            const newDocument = {...document, createdAt: Timestamp.now()}
-            const insertedDocument = await addDoc(
-                collection(db, docCollection),
-                newDocument
-            )
+            const docRef = await doc(db, docCollection, id)
+            const updatedDocument = await updateDoc(docRef, data)
+
             dispatch({
-                type: "INSERT_DOC",
-                payload: insertedDocument
+                type: "UPDATE_DOC",
+                payload: updatedDocument
             })
+            
         } catch (error) {
             dispatch({
                 type: "ERROR",
@@ -51,5 +50,5 @@ export const useInsertDocument = (docCollection) => {
     }
 
 
-    return { insertDocument, response }
+    return { updateDocument, response }
 }
